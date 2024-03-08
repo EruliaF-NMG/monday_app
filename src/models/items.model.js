@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const itemHistorySchema = new mongoose.Schema({
-  itemID: {
-    type: String,
-    trim: true,
-  },
   boardID: {
     type: String,
     trim: true,
@@ -13,31 +9,26 @@ const itemHistorySchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  itemName: {
+  itemID: {
     type: String,
     trim: true,
   },
-  status: {
-    type: String,
+  action_status:{
+    type:String,
+    enum : ['New Item','Removed',"Updated"],
+    default: 'Updated',
+  },
+  update_column:{
+    type:String,
     trim: true,
   },
-  statusIndex: {
-    type: Number,
-  },
-  email: {
-    type: String,
+  update_value:{
+    type:String,
     trim: true,
-  },
-  numbers: {
-    type: Number,
   },
   created_at: {
     type: Date,
     default: Date.now,
-  },
-  deleted_by: {
-    type: mongoose.Schema.ObjectId,
-    default: null,
   },
   deleted_at: {
     type: Date,
@@ -45,4 +36,4 @@ const itemHistorySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('ItemHistory', itemHistorySchema);
+module.exports = mongoose.model('ItemHistoryModel', itemHistorySchema);

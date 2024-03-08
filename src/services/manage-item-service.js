@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const triggerAPI = require('../utils/trigger-API');
+const ItemHistoryModel = require('../models/items.model');
 
 /**
  * get the item details by item id
@@ -93,7 +94,6 @@ const updateEmail = async (itemID,boardID,emailAddress) => {
  * @returns 
  */
 const createItemRecord = async (groupID,boardID,itemName,emailAddress,body) => {
-    console.log('groupID',groupID,boardID,itemName,emailAddress,body);
     const query = `
         mutation {
             create_item (board_id: ${boardID}, group_id: "${groupID}", item_name: "${itemName}", column_values: "${JSON.stringify(body).replace(/"/g, '\\"')}") {
@@ -107,9 +107,15 @@ const createItemRecord = async (groupID,boardID,itemName,emailAddress,body) => {
     return newItemID;
 }
 
+const createItemHistoryONLocal = async (body) => {
+    const data = await ItemHistoryModel.create(body);
+    return data;
+}
+
 
 module.exports = {
     getItemDataBYID,
     createItemRecord,
     removeItemBYID,
+    createItemHistoryONLocal
 };

@@ -8,7 +8,7 @@ const _ = require('lodash');
 const findEmailAddressInItems=(items)=>{
     try {
         const emailObject = JSON.parse(_.get(_.find(items,{"id": "email"}),'value',""));
-        return emailObject.email;
+        return _.get(emailObject,'email',null);
     } catch (ex){
         console.log('ex',ex);
         return null;
@@ -27,7 +27,7 @@ const loopItems=(items,isRealState=false)=>{
         return {
             "person":null,
             "status":isRealState?String(JSON.parse(_.get(_.find(items,{"id": "status"}),'value',"")).index):"3",
-            "date4":dateObject.date,
+            "date4": _.get(dateObject,'date',null),
             "numbers":JSON.parse(_.get(_.find(items,{"id": "numbers"}),'value',""))
         }
     } catch (ex){
@@ -47,9 +47,9 @@ const getItemFullObject=(items)=>{
         return {
             "email":findEmailAddressInItems(items),
             "person":null,
-            "date4":dateObject.date,
+            "date4": _.get(dateObject,'date',null),
             "numbers":JSON.parse(_.get(_.find(items,{"id": "numbers"}),'value',"")),
-            "status":JSON.parse(_.get(_.find(items,{"id": "status"}),'value',"")).index
+            "status":_.get(JSON.parse(_.get(_.find(items,{"id": "status"}),'value',"")),'index',''),
         }
     } catch (ex){
         console.log('ex',ex);
