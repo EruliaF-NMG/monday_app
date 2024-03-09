@@ -15,7 +15,7 @@ const groupRefSchema = new mongoose.Schema({
   },
 });
 
-const bordConfig = new mongoose.Schema({
+const boardConfig = new mongoose.Schema({
   boardID: {
     type: String,
     trim: true,
@@ -31,4 +31,4 @@ const bordConfig = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('BordConfigModel', bordConfig);
+module.exports = mongoose.model('BoardConfigModel', boardConfig);

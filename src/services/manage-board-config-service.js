@@ -1,6 +1,6 @@
 const triggerAPI = require('../utils/trigger-API');
 const _ = require('lodash');
-const BordConfigModel = require('../models/board-group-config.model');
+const BoardConfigModel = require('../models/board-group-config.model');
 const { duplicateGroupName } = require('../config/core.config');
 
 /**
@@ -67,11 +67,10 @@ const createDuplicateTableANDregisterBoardConfigToLocal = async (boardsList=[], 
             isDuplicate: true
         })
         // insert to local DB
-        const data = await BordConfigModel.create({
+        const data = await BoardConfigModel.create({
             boardID: boardId,
             groupRef: groupRef
         });
-
         return data;
     } catch (error){
         console.error('Error in createDuplicateTableANDregisterBoardConfigToLocal',error);
@@ -86,7 +85,7 @@ const createDuplicateTableANDregisterBoardConfigToLocal = async (boardsList=[], 
  */
 const getLocalConfigs = async (boardId) => {
     try{
-        const data = await BordConfigModel.findOne({ boardID: boardId });
+        const data = await BoardConfigModel.findOne({ boardID: boardId });
         return data;
     }catch(ex){
         console.log("Error in getLocalConfigs")
